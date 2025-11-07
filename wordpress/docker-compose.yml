@@ -13,13 +13,13 @@ services:
     volumes:
       - wordpress:/var/www/html
     networks:
-      - shared_network
+      - default
 
 volumes:
   wordpress:
 
 networks:
-  shared_network:
+  default:
     external: true
     
       

@@ -10,11 +10,11 @@ services:
     volumes:
       - data:/var/lib/mysql
     networks:
-      - shared_network
+      - default
 
 volumes:
   data:
   
 networks:
-  shared_network:
+  default:
     external: true
