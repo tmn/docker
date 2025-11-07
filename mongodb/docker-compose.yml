@@ -1,0 +1,33 @@
+services:
+  mongodb:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD}
+    ports:
+      - "127.0.0.1:27017:27017"
+    volumes:
+      - mongodata:/data/db
+    networks:
+      - default
+
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8110:8081
+    environment:
+      ME_CONFIG_MONGODB_URL: mongodb://${MONGO_ROOT_USERNAME}:${MONGO_ROOT_PASSWORD}@${MONGO_HOST}/
+      ME_CONFIG_BASICAUTH_ENABLED: ${MONGO_BASICAUTH_ENABLED}
+      ME_CONFIG_BASICAUTH_USERNAME: ${MONGO_EXPRESS_USER}
+      ME_CONFIG_BASICAUTH_PASSWORD: ${MONGO_EXPRESS_PASSWORD}
+    networks:
+      - default
+
+volumes:
+  mongodata:
+
+networks:
+  default:
+    external: true
